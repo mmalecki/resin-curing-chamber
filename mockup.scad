@@ -2,14 +2,20 @@ use <bed.scad>;
 include <parameters.scad>;
 
 $fn = 50;
-explode = true;
+explode = false;
 
-e = explode ? 10 : 0;
+e = explode ? 20 : 0;
+
+bed_gear = true;
+bed = true;
+
+echo(str("bed gear bolt: ", bed_gear_bolt_l));
+echo(str("bed shaft bolt ", bed_shaft_bolt_l));
 
 module bed_mockup () {
-  bed_gear();
-  translate([0, 0, gear_t / 2 + e]) {
-    bed();
+  if (bed_gear) bed_gear();
+  translate([0, 0, gear_h + e]) {
+    if (bed) bed();
   }
 }
 
