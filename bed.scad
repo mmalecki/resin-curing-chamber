@@ -34,7 +34,7 @@ module bed_gear () {
       nutcatch_parallel(bolt);
 
     translate([0, 0, -bed_shaft_bolt_l + bed_gear_h + bed_h])
-      bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1);
+      bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
 
   }
 }
@@ -44,7 +44,7 @@ module bed () {
     cylinder(d = bed_d, h = bed_h);
     translate([0, 0, -bed_gear_bolt_l+bed_h]) bed_gear_bolts();
     translate([0, 0, -bed_shaft_bolt_l + bed_h])
-      bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1);
+      bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
   }
 }
 

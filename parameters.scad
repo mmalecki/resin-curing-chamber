@@ -12,6 +12,8 @@ loose_fit = 0.5;
 bolt = "M3";
 bolt_head_l = bolt_head_length(bolt, kind = "socket_head");
 standoff_d = 7;
+// Additional clearance for heads of bolts serving as shafts:
+bolt_shaft_head_clearance = 1;
 
 // Main sizing parameters:
 // Chamber height:

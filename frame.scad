@@ -150,6 +150,6 @@ module gear1 () {
     }
 
     cylinder(d = gearbox_bearing_od + press_fit, h = gearbox_bearing_h);
-    bolt(bolt, length = gearbox_gear_h * 2, kind = "socket_head", countersink = 1);
+    bolt(bolt, length = gearbox_gear_h * 2, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
   }
 }
