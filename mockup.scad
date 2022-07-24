@@ -1,5 +1,5 @@
 use <bed.scad>;
-use <frame.scad>;
+use <base.scad>;
 use <PolyGear/PolyGear.scad>;
 include <parameters.scad>;
 
@@ -9,7 +9,7 @@ e = explode ? 40 : 0;
 slack = 0;
 
 base = true;
-bed = true;
+bed = false;
 bed_gear = true;
 bed_raiser = true;
 engine_mount = true;
