@@ -61,7 +61,7 @@ bed_bearing_h = 7;
 
 bed_shaft_bolt = "M8";
 
-// Engine mount:
+// Engine mount (engine + gearbox):
 // Measured/speced details of the engine:
 // Body length:
 engine_h = 18.6;
@@ -89,20 +89,33 @@ gearbox_gear_h = 4.2;
 gearbox_n1 = 32;
 gearbox_n2 = 13;
 
+// How deep inside the engine mount the nutcatch for the n12 gear should be.
+gearbox_n12_nutcatch_inset = 2.5;
+// How deep down we allow the accompanying bolt to go (arbirtrary value, depending
+// on what bolts you have laying around).
+gearbox_n12_bolt_l_clearance = 10;
+
 // The 603 bearing:
 gearbox_bearing_od = 9;
 gearbox_bearing_h = 5;
 
+// The actual engine mount:
+// Calculate the length base on the gearbox:
 engine_mount_l = engine_teeth + gearbox_n1 / 2 + gearbox_n2 / 2;
+// And thickness based on the M2 bolt for mounting the engine.
 engine_mount_t = engine_bolt_l - engine_bolt_inset + engine_bolt_head_l;
 engine_mount_w = 25;
+// Vertical fit between the engine and base.
 engine_h_fit = 3;
+// Calculated total engine mount height.
 engine_mount_h = engine_h +  engine_h_fit + engine_mount_t;
+// And the bolt for mounting it to the base:
 engine_mount_bolt_l = engine_mount_h + (base_h - base_mounting_inset) - bolt_head_l;
 
+// Calculated height of the bed gear spacer (lines up the bed gear with the engine
+// mount & gear).
 bed_gear_spacer_h = (engine_mount_h - base_bed_raiser_h) + bed_gear_h;
 
+// Calculated motion system bolt lengths:
 bed_shaft_bolt_l = bed_h + bed_gear_h + base_bed_raiser_h + base_h - base_mounting_inset + bed_gear_spacer_h - bolt_head_length(bed_shaft_bolt, "socket_head");
-gearbox_n12_nutcatch_inset = 2.5;
-gearbox_n12_bolt_l_clearance = 10;
 gearbox_n12_bolt_l = 2 * gearbox_gear_h + engine_mount_t + gearbox_n12_nutcatch_inset - bolt_head_l + gearbox_n12_bolt_l_clearance;
