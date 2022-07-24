@@ -13,8 +13,8 @@ module bed_gear_bolts () {
 module bed_gear () {
   difference () {
     union () {
-      translate([0, 0, gear_h / 2]) {
-        spur_gear(n = bed_gear_teeth, z = gear_h);
+      translate([0, 0, bed_gear_h / 2]) {
+        spur_gear(n = bed_gear_teeth, z = bed_gear_h);
       }
 
       rotate([180, 0, 0])
@@ -33,7 +33,7 @@ module bed_gear () {
     translate([-bed_gear_bolt_spacing / 2, 0])
       nutcatch_parallel(bolt);
 
-    translate([0, 0, -bed_shaft_bolt_l + gear_h + bed_h])
+    translate([0, 0, -bed_shaft_bolt_l + bed_gear_h + bed_h])
       bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1);
 
   }
@@ -49,5 +49,7 @@ module bed () {
 }
 
 module engine_gear () {
-  spur_gear(n = engine_gear, z = gear_h);
+  spur_gear(n = engine_gear, z = bed_gear_h);
 }
+
+bed();
