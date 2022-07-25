@@ -1,5 +1,6 @@
 use <PolyGear/PolyGear.scad>;
 use <catchnhole/catchnhole.scad>;
+use <bed.scad>;
 include <parameters.scad>;
 
 module base () {
@@ -61,15 +62,6 @@ module bed_raiser_mounts () {
   translate([b, a]) children();
   translate([a, b]) children();
   translate([b, b]) children();
-}
-
-module bed_axle () {
-  translate([0, 0, base_bed_raiser_h + base_bed_raiser_spacer_h]) {
-    cylinder(d = bed_bearing_od + press_fit, h = bed_bearing_h);
-  }
-
-  nutcatch_parallel(bed_shaft_bolt, kind = "hexagon_lock");
-  bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head");
 }
 
 module bed_raiser_bolts () {

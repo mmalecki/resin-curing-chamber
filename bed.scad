@@ -21,6 +21,9 @@ module bed_gear () {
 
     }
 
+    translate([0, 0, -base_bed_raiser_h - base_bed_raiser_spacer_h])
+      bed_axle();
+
     translate([0, 0,  bed_bearing_h]) {
       bed_gear_bolts();
 
@@ -30,9 +33,6 @@ module bed_gear () {
       translate([-bed_gear_bolt_s / 2, 0])
         nutcatch_parallel(bolt);
 
-      translate([0, 0, -bed_shaft_bolt_l + bed_gear_h + bed_h])
-        bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
-
     }
   }
 }
@@ -41,13 +41,18 @@ module bed () {
   difference () {
     cylinder(d = bed_d, h = bed_h);
     translate([0, 0, -bed_gear_bolt_l+bed_h]) bed_gear_bolts();
-    translate([0, 0, -bed_shaft_bolt_l + bed_h])
-      bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
+    translate([0, 0, -base_bed_raiser_h - base_bed_raiser_spacer_h - bed_gear_h - bed_bearing_h])
+      bed_axle();
   }
 }
 
-module engine_gear () {
-  spur_gear(n = engine_gear, z = bed_gear_h);
+module bed_axle () {
+  translate([0, 0, base_bed_raiser_h + base_bed_raiser_spacer_h]) {
+    cylinder(d = bed_bearing_od + press_fit, h = bed_bearing_h);
+  }
+
+  nutcatch_parallel(bed_shaft_bolt, kind = "hexagon_lock");
+  bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head");
 }
 
 bed();
