@@ -60,7 +60,7 @@ module mockup () {
           bed_raiser();
       }
 
-      translate([0, 0, base_bed_raiser_h + bed_gear_spacer_h + e + slack]) bed_mockup();
+      translate([0, 0, base_bed_raiser_h + base_bed_raiser_spacer_h + e + slack]) bed_mockup();
     }
 
 
@@ -91,7 +91,7 @@ module mockup () {
 
 module bed_mockup () {
   if (bed_gear) bed_gear();
-  translate([0, 0, bed_gear_h + e + slack]) {
+  translate([0, 0, bed_gear_h + bed_bearing_h +  e + slack]) {
     if (bed) bed();
   }
 }

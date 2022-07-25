@@ -7,8 +7,6 @@ module base () {
     cube([base_d, base_d, base_h]);
 
     translate([base_d / 2, base_d / 2]) {
-      bed_axle();
-
       translate([-base_bed_raiser_d / 2, -base_bed_raiser_d / 2]) {
         bed_raiser_bolts();
         bed_raiser_mounts() nutcatch_parallel(bolt);
@@ -17,6 +15,9 @@ module base () {
           cube([base_bed_raiser_d + fit, base_bed_raiser_d + fit, base_mounting_inset]);
         }
       }
+
+      translate([0, 0, base_h - base_mounting_inset]) bed_axle();
+
 
       rotate([0, 0, 45]) {
         translate([bed_gear_teeth / 2, -(engine_mount_w + standoff_d) / 2]) {
@@ -34,14 +35,22 @@ module base () {
 
 module bed_raiser () {
   difference () {
-    cube([base_bed_raiser_d, base_bed_raiser_d, base_bed_raiser_h]);
-
-    translate([0, 0, -(base_h - base_mounting_inset)]) {
-      bed_raiser_bolts();
-
-      translate([base_bed_raiser_d / 2, base_bed_raiser_d / 2])
-         bed_axle();
+    union () {
+      cube([base_bed_raiser_d, base_bed_raiser_d, base_bed_raiser_h]);
+      translate([base_bed_raiser_d / 2, base_bed_raiser_d / 2, base_bed_raiser_h]) {
+        cylinder(
+          d1 = base_bed_raiser_spacer_d_top,
+          d2 = base_bed_raiser_spacer_d_bottom,
+          h = base_bed_raiser_spacer_h
+        );
+      }
     }
+
+    translate([base_bed_raiser_d / 2, base_bed_raiser_d / 2])
+       bed_axle();
+
+    translate([0, 0, -(base_h - base_mounting_inset)])
+      bed_raiser_bolts();
   }
 }
 
@@ -55,7 +64,7 @@ module bed_raiser_mounts () {
 }
 
 module bed_axle () {
-  translate([0, 0, (base_h + base_bed_raiser_h) - bed_bearing_h - base_mounting_inset]) {
+  translate([0, 0, base_bed_raiser_h + base_bed_raiser_spacer_h]) {
     cylinder(d = bed_bearing_od + press_fit, h = bed_bearing_h);
   }
 
@@ -65,7 +74,7 @@ module bed_axle () {
 
 module bed_raiser_bolts () {
   bed_raiser_mounts()
-    bolt(bolt, length = base_bed_raiser_bolt_l);
+    bolt(bolt, length = base_bed_raiser_bolt_l, kind = "socket_head");
 }
 
 module engine_mount () {
