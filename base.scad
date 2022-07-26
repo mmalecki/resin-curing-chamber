@@ -15,6 +15,7 @@ module base_led_mount () {
     led_mount_rib_w / 2,
   ]) {
     led_mount_rib_bolts();
+    led_mount_rib_mounts() nutcatch_parallel(led_mount_bolt);
   }
 }
 module base () {
