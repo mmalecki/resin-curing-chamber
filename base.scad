@@ -1,11 +1,20 @@
 use <PolyGear/PolyGear.scad>;
 use <catchnhole/catchnhole.scad>;
 use <bed.scad>;
+use <cover.scad>;
+use <led-mount.scad>;
 include <parameters.scad>;
 
 module base () {
   difference () {
-    cube([base_d, base_d, base_h]);
+    union () {
+      cube([base_d, base_d, base_h - base_cover_inset]);
+      translate([cover_t + cover_fit / 2, cover_t + cover_fit / 2, base_cover_inset]) {
+        d = base_d - 2 * cover_t - fit;
+        cube([d, d, base_h]);
+      }
+    }
+
 
     translate([base_d / 2, base_d / 2]) {
       translate([-base_bed_raiser_d / 2, -base_bed_raiser_d / 2]) {
@@ -17,8 +26,8 @@ module base () {
         }
       }
 
+      // Screw run-out only.
       translate([0, 0, base_h - base_mounting_inset]) bed_axle();
-
 
       rotate([0, 0, 45]) {
         translate([bed_gear_teeth / 2, -(engine_mount_w + standoff_d) / 2]) {
@@ -31,6 +40,8 @@ module base () {
         }
       }
     }
+
+    led_mount_rib_mounts() nutcatch_parallel(led_mount_bolt);
   }
 }
 

@@ -20,7 +20,17 @@ bolt_shaft_head_clearance = 1;
 chamber_h = 100;
 // Bed diameter:
 bed_d = 134;
+// Cover thickness:
+cover_t = 2;
+// How much side clearance the bed should have from cover:
+cover_bed_clearance = 6.25;
 
+// Depth of the inset to create to fit the cover.
+base_cover_inset = 2;
+assert(base_cover_inset < base_h, "base cover inset cannot be larger than base height");
+cover_fit = fit;
+// Height of the cover:
+cover_h = chamber_h + base_cover_inset;
 // Height of the bed plater:
 bed_h = 4.2;
 // Height of the bed gear (`+ fit` to raise the bed platter above the reduction gear):
@@ -38,14 +48,13 @@ bed_gear_bolt_l = bed_h + bed_gear_h;
 // Base:
 // Height of the base plate:
 base_h = 5;
-// How much clearance the side clearance the bed should have from base:
-base_bed_clearance = 5.75;
 // How recessed the mounted parts should be within the base:
 base_mounting_inset = 2.5;
 assert(base_mounting_inset < base_h, "base mounting inset cannot be larger than base height");
 
+
 // Calculated base edge:
-base_d = bed_d + base_bed_clearance;
+base_d = bed_d + cover_bed_clearance + cover_t * 2;
 
 // Bed raiser:
 base_bed_raiser_h = 20.5;
@@ -126,3 +135,27 @@ base_bed_raiser_spacer_h = (engine_mount_h - base_bed_raiser_h - bed_bearing_h) 
 // Calculated motion system bolt lengths:
 bed_shaft_bolt_l = bed_h + bed_gear_h + base_bed_raiser_h + base_bed_raiser_spacer_h + bed_bearing_h - bolt_head_length(bed_shaft_bolt, "socket_head");
 gearbox_n12_bolt_l = 2 * gearbox_gear_h + engine_mount_t + gearbox_n12_nutcatch_inset - bolt_head_l + gearbox_n12_bolt_l_clearance;
+
+led_strip_w = 8;
+led_strip_t = 1.6;
+led_mount_bolt = "M2";
+led_mount_clamp_t = 1.2;
+led_mount_clamp_h = 6;
+led_mount_clamp_back_t = 2;
+led_mount_clamp_back_w = led_strip_w + fit;
+led_mount_clamp_front_w = 0.625 * (led_mount_clamp_back_w + 2 * led_mount_clamp_t);
+led_mount_clamp_bolt_l = 4;
+
+led_mount_pad_w = 8;
+led_mount_pad_h = 6;
+led_mount_pad_t = 2;
+led_mount_rib_pad_channel_t = led_mount_pad_t;
+
+led_mount_rib_w = 12;
+led_mount_rib_t = 3;
+// led_mount_rib_channel_offset = 10;
+led_mount_rib_channel_offset = 5;
+led_mount_rib_channel_d = 2.5;
+// led_mount_rib_h = chamber_h;
+led_mount_rib_h = 20;
+led_mount_rib_bracket_l = 10;
