@@ -27,11 +27,11 @@ module bed_gear () {
     translate([0, 0,  bed_bearing_h]) {
       bed_gear_bolts();
 
-      translate([bed_gear_bolt_s / 2, 0])
-        nutcatch_parallel(bolt);
+      translate([bed_gear_bolt_s / 2, 0, nut_height(bolt)])
+        rotate([0, 180]) nutcatch_parallel(bolt, height_clearance = bed_bearing_h);
 
-      translate([-bed_gear_bolt_s / 2, 0])
-        nutcatch_parallel(bolt);
+      translate([-bed_gear_bolt_s / 2, 0, nut_height(bolt)])
+        rotate([0, 180]) nutcatch_parallel(bolt, height_clearance = bed_bearing_h);
 
     }
   }
@@ -55,4 +55,4 @@ module bed_axle () {
   bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", length_clearance = base_h - base_mounting_inset);
 }
 
-bed();
+bed_gear();

@@ -5,13 +5,25 @@ use <cover.scad>;
 use <led-mount.scad>;
 include <parameters.scad>;
 
+module base_led_mount () {
+  translate([0, 0, base_h - base_mounting_inset])
+    translate([-fit / 2, -fit / 2])
+      cube([led_mount_rib_bracket_l + fit, led_mount_rib_w + fit, base_mounting_inset]);
+
+  translate([
+    (led_mount_rib_t + led_mount_rib_bracket_l) / 2,
+    led_mount_rib_w / 2,
+  ]) {
+    led_mount_rib_bolts();
+  }
+}
 module base () {
   difference () {
     union () {
       cube([base_d, base_d, base_h - base_cover_inset]);
       translate([cover_t + cover_fit / 2, cover_t + cover_fit / 2, base_cover_inset]) {
         d = base_d - 2 * cover_t - fit;
-        cube([d, d, base_h]);
+        cube([d, d, base_h - base_cover_inset]);
       }
     }
 
@@ -41,8 +53,38 @@ module base () {
       }
     }
 
-    led_mount_rib_mounts() nutcatch_parallel(led_mount_bolt);
+    a = cover_base_offset + fit / 2;
+    b = base_d / 2 - (led_mount_rib_w + fit) / 2;
+    translate([
+      base_d / 2 + (led_mount_rib_w + fit) / 2,
+      a,
+    ]) {
+      rotate([0, 0, 90]) base_led_mount();
+    }
+
+    translate([
+      b,
+      base_d - a,
+    ]) {
+      rotate([0, 0, 270]) base_led_mount();
+    }
+
+    translate([
+      a,
+      b,
+    ]) {
+      base_led_mount();
+    }
+
+    translate([
+      base_d - a,
+      b + led_mount_rib_w - fit / 2,
+    ]) {
+      rotate([0, 0, 180]) base_led_mount();
+    }
+
   }
+
 }
 
 module bed_raiser () {

@@ -16,19 +16,20 @@ standoff_d = 7;
 bolt_shaft_head_clearance = 1;
 
 // Main sizing parameters:
-// Chamber height:
+// Chamber height (maximum height of a fitting object):
 chamber_h = 100;
 // Bed diameter:
 bed_d = 134;
 // Cover thickness:
 cover_t = 2;
 // How much side clearance the bed should have from cover:
-cover_bed_clearance = 6.25;
+cover_bed_clearance = 8;
 
 // Depth of the inset to create to fit the cover.
 base_cover_inset = 2;
 assert(base_cover_inset < base_h, "base cover inset cannot be larger than base height");
 cover_fit = fit;
+cover_base_offset = cover_t + cover_fit / 2;
 // Height of the cover:
 cover_h = chamber_h + base_cover_inset;
 // Height of the bed plater:
@@ -136,6 +137,10 @@ base_bed_raiser_spacer_h = (engine_mount_h - base_bed_raiser_h - bed_bearing_h) 
 bed_shaft_bolt_l = bed_h + bed_gear_h + base_bed_raiser_h + base_bed_raiser_spacer_h + bed_bearing_h - bolt_head_length(bed_shaft_bolt, "socket_head");
 gearbox_n12_bolt_l = 2 * gearbox_gear_h + engine_mount_t + gearbox_n12_nutcatch_inset - bolt_head_l + gearbox_n12_bolt_l_clearance;
 
+// How much distance is there between base top and beginning of the chamber
+// (height of the under-bed machinery):
+chamber_add_h = base_bed_raiser_h - base_mounting_inset + base_bed_raiser_spacer_h + bed_bearing_h;
+
 led_strip_w = 8;
 led_strip_t = 1.6;
 led_mount_bolt = "M2";
@@ -151,11 +156,12 @@ led_mount_pad_h = 6;
 led_mount_pad_t = 2;
 led_mount_rib_pad_channel_t = led_mount_pad_t;
 
-led_mount_rib_w = 12;
+led_mount_rib_w = 14;
 led_mount_rib_t = 3;
-// led_mount_rib_channel_offset = 10;
-led_mount_rib_channel_offset = 5;
+led_mount_rib_channel_offset = 10;
 led_mount_rib_channel_d = 2.5;
-// led_mount_rib_h = chamber_h;
-led_mount_rib_h = 20;
+led_mount_rib_h = chamber_h + base_mounting_inset + chamber_add_h;
 led_mount_rib_bracket_l = 10;
+
+pcb_mount_bolt_s = 40.6;
+pcb_mount_bolt = "M2";

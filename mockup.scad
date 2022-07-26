@@ -1,5 +1,6 @@
 use <bed.scad>;
 use <base.scad>;
+use <led-mount.scad>;
 use <PolyGear/PolyGear.scad>;
 include <parameters.scad>;
 
@@ -85,6 +86,15 @@ module mockup () {
             gearbox_mockup();
         }
       }
+    }
+
+    a = cover_base_offset + fit / 2;
+    b = base_d / 2 - (led_mount_rib_w + fit) / 2;
+    translate([
+      -base_d / 2 + a,
+      -(led_mount_rib_w + fit) / 2
+    ]) {
+      led_mount_rib();
     }
   }
 }

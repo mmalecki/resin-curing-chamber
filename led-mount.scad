@@ -8,7 +8,12 @@ module led_mount_rib () {
       cube([led_mount_rib_bracket_l, led_mount_rib_w, led_mount_rib_t]);
     }
 
-    led_mount_rib_mounts() bolt(led_mount_bolt, led_mount_rib_t);
+    translate([
+      (led_mount_rib_t + led_mount_rib_bracket_l) / 2,
+      led_mount_rib_w / 2,
+    ]) {
+      led_mount_rib_bolts();
+    }
 
     translate([0, led_mount_rib_w / 2]) {
       hull () {
@@ -75,14 +80,14 @@ module led_mount_clamp () {
   }
 }
 
+module led_mount_rib_bolts () {
+  led_mount_rib_mounts()
+    bolt(led_mount_bolt, length=base_h - base_mounting_inset + led_mount_rib_t);
+}
+
 module led_mount_rib_mounts () {
-  translate([
-    (led_mount_rib_t + led_mount_rib_bracket_l) / 2,
-    0,
-  ]) {
-    translate([0, led_mount_rib_w * (1/4), 0]) children();
-    translate([0, led_mount_rib_w * (3/4), 0]) children();
-  }
+  translate([0, -led_mount_rib_w / 4, 0]) children();
+  translate([0, led_mount_rib_w / 4, 0]) children();
 }
 
 module led_mount_pad () {
