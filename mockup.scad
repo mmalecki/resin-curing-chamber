@@ -1,6 +1,8 @@
 use <bed.scad>;
 use <base.scad>;
+use <cover.scad>;
 use <led-mount.scad>;
+use <pcb-mount.scad>;
 use <PolyGear/PolyGear.scad>;
 include <parameters.scad>;
 
@@ -10,12 +12,14 @@ e = explode ? 40 : 0;
 slack = 0;
 
 base = true;
+cover = true;
 bed = false;
 bed_gear = true;
 bed_raiser = true;
 engine_mount = true;
 engine_mockup = true;
 gearbox = true;
+pcb_mount = true;
 
 echo(str("bed gear bolt: ", bed_gear_bolt_l));
 echo(str("bed shaft bolt ", bed_shaft_bolt_l));
@@ -50,11 +54,10 @@ module engine_front_mockup () {
 
 module mockup () {
   if (base) {
-    translate([-base_d / 2, -base_d / 2, 0])
-      base();
+    base();
   }
 
-  translate([0, 0, base_h + e + slack]) {
+  translate([base_d / 2, base_d / 2, base_h + e + slack]) {
     translate([0, 0, -base_mounting_inset + slack]) {
       if (bed_raiser) {
         translate([-base_bed_raiser_d / 2, -base_bed_raiser_d / 2])
@@ -87,15 +90,26 @@ module mockup () {
         }
       }
     }
+  }
 
-    a = cover_base_offset + fit / 2;
-    b = base_d / 2 - (led_mount_rib_w + fit) / 2;
-    translate([
-      -base_d / 2 + a,
-      -(led_mount_rib_w + fit) / 2
-    ]) {
-      led_mount_rib();
-    }
+  translate([
+    cover_base_offset,
+    base_d / 2 - led_mount_rib_w / 2,
+    base_h - base_mounting_inset + slack + e
+  ]) {
+    led_mount_rib();
+  }
+
+  translate([
+    cover_base_offset + fit / 2 + standoff_d,
+    base_d - standoff_d - cover_base_offset - fit / 2,
+    base_h - base_mounting_inset
+  ]) {
+    if (pcb_mount) pcb_mount();
+  }
+
+  if (cover) {
+    translate([0, 0, base_h - base_mounting_inset + slack + 5 * e]) cover();
   }
 }
 

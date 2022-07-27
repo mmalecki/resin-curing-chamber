@@ -3,28 +3,38 @@ use <catchnhole/catchnhole.scad>;
 use <bed.scad>;
 use <cover.scad>;
 use <led-mount.scad>;
+use <pcb-mount.scad>;
 include <parameters.scad>;
 
 module base_led_mount () {
-  translate([0, 0, base_h - base_mounting_inset])
-    translate([-fit / 2, -fit / 2])
-      cube([led_mount_rib_bracket_l + fit, led_mount_rib_w + fit, base_mounting_inset]);
-
   translate([
-    (led_mount_rib_t + led_mount_rib_bracket_l) / 2,
+    base_d / 2 - cover_base_offset,
     led_mount_rib_w / 2,
+    0
   ]) {
-    led_mount_rib_bolts();
-    led_mount_rib_mounts() nutcatch_parallel(led_mount_bolt);
+    rotate([0, 0, 180]) {
+      translate([0, 0, base_h - base_mounting_inset])
+        translate([-fit / 2, -fit / 2])
+          cube([led_mount_rib_bracket_l + fit, led_mount_rib_w + fit, base_mounting_inset]);
+
+      translate([
+        (led_mount_rib_t + led_mount_rib_bracket_l) / 2,
+        led_mount_rib_w / 2,
+      ]) {
+        led_mount_rib_bolts();
+        led_mount_rib_mounts() nutcatch_parallel(led_mount_bolt);
+      }
+    }
   }
 }
+
 module base () {
   difference () {
     union () {
-      cube([base_d, base_d, base_h - base_cover_inset]);
-      translate([cover_t + cover_fit / 2, cover_t + cover_fit / 2, base_cover_inset]) {
+      cube([base_d, base_d, base_h - base_mounting_inset]);
+      translate([cover_t + cover_fit / 2, cover_t + cover_fit / 2, base_mounting_inset]) {
         d = base_d - 2 * cover_t - fit;
-        cube([d, d, base_h - base_cover_inset]);
+        cube([d, d, base_h - base_mounting_inset]);
       }
     }
 
@@ -52,38 +62,29 @@ module base () {
           }
         }
       }
-    }
 
-    a = cover_base_offset + fit / 2;
-    b = base_d / 2 - (led_mount_rib_w + fit) / 2;
-    translate([
-      base_d / 2 + (led_mount_rib_w + fit) / 2,
-      a,
-    ]) {
-      rotate([0, 0, 90]) base_led_mount();
-    }
-
-    translate([
-      b,
-      base_d - a,
-    ]) {
-      rotate([0, 0, 270]) base_led_mount();
-    }
-
-    translate([
-      a,
-      b,
-    ]) {
       base_led_mount();
+      rotate([0, 0, 90]) base_led_mount();
+      rotate([0, 0, 180]) base_led_mount();
+      rotate([0, 0, 270]) base_led_mount();
+
+      cover_bolts();
+      translate([0, 0, base_h - base_mounting_inset])
+        cover_mounts() cylinder(d = standoff_d + fit, h = base_mounting_inset);
     }
 
     translate([
-      base_d - a,
-      b + led_mount_rib_w - fit / 2,
+      cover_base_offset + standoff_d,
+      base_d - cover_base_offset - standoff_d - fit,
     ]) {
-      rotate([0, 0, 180]) base_led_mount();
-    }
+      translate([0, 0, base_h - base_mounting_inset])
+        cube([pcb_mount_w + fit, standoff_d + fit, base_mounting_inset]);
 
+      translate([pcb_mount_w / 2 + fit / 2, standoff_d / 2 - fit / 2]) {
+        pcb_mount_mounts() nutcatch_parallel(pcb_mount_bolt);
+        pcb_mount_bolts();
+      }
+    }
   }
 
 }
@@ -209,3 +210,5 @@ module gear1 () {
     bolt(bolt, length = gearbox_gear_h * 2, kind = "socket_head", countersink = 1, head_diameter_clearance = bolt_shaft_head_clearance);
   }
 }
+
+base();

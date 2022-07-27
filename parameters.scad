@@ -25,13 +25,6 @@ cover_t = 2;
 // How much side clearance the bed should have from cover:
 cover_bed_clearance = 8;
 
-// Depth of the inset to create to fit the cover.
-base_cover_inset = 2;
-assert(base_cover_inset < base_h, "base cover inset cannot be larger than base height");
-cover_fit = fit;
-cover_base_offset = cover_t + cover_fit / 2;
-// Height of the cover:
-cover_h = chamber_h + base_cover_inset;
 // Height of the bed plater:
 bed_h = 4.2;
 // Height of the bed gear (`+ fit` to raise the bed platter above the reduction gear):
@@ -50,12 +43,20 @@ bed_gear_bolt_l = bed_h + bed_gear_h;
 // Height of the base plate:
 base_h = 5;
 // How recessed the mounted parts should be within the base:
-base_mounting_inset = 2.5;
+base_mounting_inset = 2;
 assert(base_mounting_inset < base_h, "base mounting inset cannot be larger than base height");
 
 
 // Calculated base edge:
 base_d = bed_d + cover_bed_clearance + cover_t * 2;
+
+// Cover:
+cover_fit = fit;
+cover_base_offset = cover_t + cover_fit / 2;
+cover_standoff_h = 7.5;
+// Height of the cover:
+cover_h = chamber_h + base_mounting_inset;
+cover_bolt_l = cover_standoff_h + (2 * base_h - base_mounting_inset);
 
 // Bed raiser:
 base_bed_raiser_h = 20.5;
@@ -145,7 +146,7 @@ led_strip_w = 8;
 led_strip_t = 1.6;
 led_mount_bolt = "M2";
 led_mount_clamp_t = 1.2;
-led_mount_clamp_h = 6;
+led_mount_clamp_h = 8;
 led_mount_clamp_back_t = 2;
 led_mount_clamp_back_w = led_strip_w + fit;
 led_mount_clamp_front_w = 0.625 * (led_mount_clamp_back_w + 2 * led_mount_clamp_t);
@@ -156,12 +157,22 @@ led_mount_pad_h = 6;
 led_mount_pad_t = 2;
 led_mount_rib_pad_channel_t = led_mount_pad_t;
 
+// LED mount rib (the vertical piece holding LED clamps):
 led_mount_rib_w = 14;
 led_mount_rib_t = 3;
 led_mount_rib_channel_offset = 10;
 led_mount_rib_channel_d = 2.5;
-led_mount_rib_h = chamber_h + base_mounting_inset + chamber_add_h;
+led_mount_rib_h = chamber_h + chamber_add_h;
 led_mount_rib_bracket_l = 10;
 
+// PCB mount:
+// Measured:
+pcb_t = 1.75;
+pcb_w = 48;
+pcb_l = 35;
 pcb_mount_bolt_s = 40.6;
+
 pcb_mount_bolt = "M2";
+pcb_mount_standoff_h = 7.5;
+pcb_mount_w = pcb_mount_bolt_s + standoff_d;
+pcb_mount_bolt_l = (base_h - base_mounting_inset) + pcb_mount_standoff_h + pcb_t;
