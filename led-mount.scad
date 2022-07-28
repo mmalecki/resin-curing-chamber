@@ -1,6 +1,22 @@
 use <catchnhole/catchnhole.scad>;
 include <parameters.scad>;
 
+module rib_cutout(d, h) {
+  hull () {
+    translate([0, 0, led_mount_rib_channel_offset]) {
+      rotate([0, 90, 0]) {
+        cylinder(d = d, h = h);
+      }
+    }
+
+    translate([0, 0, led_mount_rib_h - led_mount_rib_channel_offset]) {
+      rotate([0, 90, 0]) {
+        cylinder(d = d, h = h);
+      }
+    }
+  }
+}
+
 module led_mount_rib () {
   difference () {
     union () {
@@ -16,33 +32,16 @@ module led_mount_rib () {
     }
 
     translate([0, led_mount_rib_w / 2]) {
-      hull () {
-        translate([0, 0, led_mount_rib_channel_offset]) {
-          rotate([0, 90, 0]) {
-            cylinder(d = led_mount_pad_w + fit, h = led_mount_rib_pad_channel_t);
-          }
-        }
+      rib_cutout(led_mount_pad_w + fit, h = led_mount_rib_pad_channel_t);
+      rib_cutout(led_mount_rib_channel_d, h = led_mount_rib_t);
 
-        translate([0, 0, led_mount_rib_h - led_mount_rib_channel_offset]) {
-          rotate([0, 90, 0]) {
-            cylinder(d = led_mount_pad_w + fit, h = led_mount_rib_pad_channel_t);
-          }
+      translate([led_mount_rib_t, 0, led_mount_rib_h - led_mount_rib_nutcatch_offset])
+        rotate([0, 270, 0]) {
+          nutcatch_parallel(led_mount_bolt);
+          bolt(led_mount_bolt, length = led_mount_rib_t + cover_t);
         }
-      }
-      hull () {
-        translate([0, 0, led_mount_rib_channel_offset]) {
-          rotate([0, 90, 0]) {
-            cylinder(d = led_mount_rib_channel_d, h = led_mount_rib_t);
-          }
-        }
-
-        translate([0, 0, led_mount_rib_h - led_mount_rib_channel_offset]) {
-          rotate([0, 90, 0]) {
-            cylinder(d = led_mount_rib_channel_d, h = led_mount_rib_t);
-          }
-        }
-      }
     }
+
   }
 }
 
