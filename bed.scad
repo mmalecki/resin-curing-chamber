@@ -52,7 +52,13 @@ module bed_axle () {
   }
 
   nutcatch_parallel(bed_shaft_bolt, kind = "hexagon_lock");
-  bolt(bed_shaft_bolt, length = bed_shaft_bolt_l, kind = "socket_head", length_clearance = base_h - base_mounting_inset);
+  bolt(
+    bed_shaft_bolt,
+    length = bed_shaft_bolt_l,
+    kind = "socket_head",
+    length_clearance = base_h - base_mounting_inset,
+    head_diameter_clearance = bolt_shaft_head_clearance
+  );
 }
 
 bed_gear();
