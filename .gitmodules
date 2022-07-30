@@ -4,3 +4,6 @@
 [submodule "catchnhole"]
 	path = catchnhole
 	url = https://github.com/mmalecki/catchnhole
+[submodule "next-bolt"]
+	path = next-bolt
+	url = https://github.com/mmalecki/next-bolt
