@@ -160,6 +160,7 @@ led_mount_rib_pad_channel_t = led_mount_pad_t;
 // LED mount rib (the vertical piece holding LED clamps):
 led_mount_rib_w = 14;
 led_mount_rib_t = 3;
+led_mount_rib_nutcatch_offset = 3;
 led_mount_rib_channel_offset = 10;
 led_mount_rib_channel_d = 2.5;
 led_mount_rib_h = chamber_h + chamber_add_h;
