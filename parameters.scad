@@ -176,3 +176,7 @@ pcb_mount_bolt = "M2";
 pcb_mount_standoff_h = 7.5;
 pcb_mount_w = pcb_mount_bolt_s + standoff_d;
 pcb_mount_bolt_l = (base_h - base_mounting_inset) + pcb_mount_standoff_h + pcb_t;
+
+// Floor:
+floor_h = 5;
+floor_bolt_inset = 2.5;
