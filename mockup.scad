@@ -1,5 +1,6 @@
 use <bed.scad>;
 use <base.scad>;
+use <floor.scad>;
 use <cover.scad>;
 use <led-mount.scad>;
 use <pcb-mount.scad>;
@@ -11,6 +12,7 @@ explode = false;
 e = explode ? 40 : 0;
 slack = 0;
 
+floor_ = true;
 base = true;
 cover = true;
 bed = false;
@@ -53,6 +55,10 @@ module engine_front_mockup () {
 }
 
 module mockup () {
+  if (floor_) {
+    translate([0, 0, -e]) floor_();
+  }
+
   if (base) {
     base();
   }
