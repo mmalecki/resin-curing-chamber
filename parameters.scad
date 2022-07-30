@@ -140,7 +140,7 @@ gearbox_n12_bolt_l = 2 * gearbox_gear_h + engine_mount_t + gearbox_n12_nutcatch_
 
 // How much distance is there between base top and beginning of the chamber
 // (height of the under-bed machinery):
-chamber_add_h = base_bed_raiser_h - base_mounting_inset + base_bed_raiser_spacer_h + bed_bearing_h;
+chamber_add_h = base_bed_raiser_h - base_mounting_inset + base_bed_raiser_spacer_h + bed_bearing_h + bed_gear_h + bed_h;
 
 led_strip_w = 8;
 led_strip_t = 1.6;
