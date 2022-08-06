@@ -24,6 +24,7 @@ engine_mount = true;
 engine_mockup = true;
 gearbox = true;
 pcb_mount = true;
+led_mount = true;
 
 echo(str("bed gear bolt: ", bed_gear_bolt_l));
 echo(str("bed shaft bolt ", bed_shaft_bolt_l));
@@ -117,7 +118,7 @@ module mockup () {
     base_d / 2 - led_mount_rib_w / 2,
     base_h - base_mounting_inset + slack + e
   ]) {
-    led_mount_rib();
+    if (led_mount) led_mount_rib();
   }
 
   translate([
