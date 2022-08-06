@@ -36,6 +36,9 @@ bed_gear_teeth = 100;
 assert(bed_gear_teeth < bed_d, "bed gear will not fit the chamber");
 
 // Arbirtrary spacing between the bolts holding the bed and bed gear together:
+// This could have been calculated off the bearing and its holder's width,
+// but the distance also determines compatibility between the bed gear and the
+// bed, so it's safest to keep it a constant while in development.
 bed_gear_bolt_s = 30; 
 
 // Calculated length of the bolt holding the bed and bed gear together:
@@ -136,8 +139,11 @@ gearbox_n12_bolt_l = 2 * gearbox_gear_h + engine_mount_t + gearbox_n12_nutcatch_
 // (height of the under-bed machinery):
 chamber_add_h = base_bed_raiser_h - base_mounting_inset + base_bed_raiser_spacer_h + bed_bearing_h + bed_gear_h + bed_h;
 
+// The width of the LED strip you have:
 led_strip_w = 8;
+// And its thickness:
 led_strip_t = 1.6;
+// The bolt we're using for mounting the LED mounts.
 led_mount_bolt = "M2";
 led_mount_clamp_t = 1.2;
 led_mount_clamp_h = 8;
