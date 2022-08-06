@@ -27,7 +27,7 @@ module floor_ () {
     cube([base_d, base_d, floor_h]);
 
     translate([base_d / 2, base_d / 2]) {
-      cover_bolts();
+      translate([0, 0, cover_bolt_offset]) cover_bolts();
       cover_mounts() nutcatch_parallel(bolt);
 
       translate([0, 0, floor_h]) {

@@ -1,4 +1,6 @@
 use <catchnhole/catchnhole.scad>;
+use <lookup-kv/lookup-kv.scad>;
+use <next-bolt/next-bolt.scad>;
 
 $fn = 50;
 
@@ -49,14 +51,6 @@ assert(base_mounting_inset < base_h, "base mounting inset cannot be larger than 
 
 // Calculated base edge:
 base_d = bed_d + cover_bed_clearance + cover_t * 2;
-
-// Cover:
-cover_fit = fit;
-cover_base_offset = cover_t + cover_fit / 2;
-cover_standoff_h = 7.5;
-// Height of the cover:
-cover_h = chamber_h + base_mounting_inset;
-cover_bolt_l = cover_standoff_h + (2 * base_h - base_mounting_inset);
 
 // Bed raiser:
 base_bed_raiser_h = 20.5;
@@ -181,3 +175,41 @@ pcb_mount_bolt_l = (base_h - base_mounting_inset) + pcb_mount_standoff_h + pcb_t
 // Floor:
 floor_h = 5;
 floor_bolt_inset = 2.5;
+
+// Cover:
+cover_fit = fit;
+cover_base_offset = cover_t + cover_fit / 2;
+cover_standoff_h = 10;
+// Height of the cover:
+cover_h = chamber_h + chamber_add_h;
+cover_bolt_offset = (base_h - base_mounting_inset) + floor_h;
+
+cover_bolt = lookup_kv(next_bolt(bolt, cover_standoff_h + cover_bolt_offset), "previous");
+cover_bolt_l = lookup_kv(cover_bolt, "length");
+cover_bolt_countersink = lookup_kv(cover_bolt, "countersink");
+
+echo(str("BOM: ", bolt, "x", cover_bolt_l));
+
+endstop_bolt_spacing = 7;
+endstop_bolt = "M2";
+// When the endstop is activated, its total height (including the depressed lever) is this:
+endstop_act_h = 11.9; 
+// When the endstop is deactivated, its total height (including the returning lever) is this:
+endstop_deact_h = 12.7;
+endstop_pressed_h = 11.1;
+endstop_h = 10.1;
+endstop_l = 18.5;
+endstop_w = 7.3;
+endstop_bolt_offset = 2.1;
+
+endstop_cover_offset_add = 4;
+endstop_cover_offset = cover_h + endstop_bolt_offset - endstop_deact_h - endstop_cover_offset_add;
+endstop_activator_h = (endstop_deact_h - endstop_pressed_h) * 3/4 + endstop_cover_offset_add;
+cover_dc_input_d = 7.6 + fit;
+cover_switch_d = 5.85 + fit;
+cover_dc_input_bottom_offset = pcb_mount_standoff_h + 25;
+cover_dc_input_side_offset = cover_dc_input_d / 2 + cover_t + standoff_d;
+cover_switch_side_offset = cover_dc_input_side_offset + cover_dc_input_d + cover_dc_input_d;
+cover_led_mount_bolt_clearance = 0.2;
+
+cover_top_h = 5;

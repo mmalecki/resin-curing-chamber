@@ -7,3 +7,9 @@
 [submodule "next-bolt"]
 	path = next-bolt
 	url = https://github.com/mmalecki/next-bolt
+[submodule "lookup-kv"]
+	path = lookup-kv
+	url = https://github.com/mmalecki/openscad-lookup-kv
+[submodule "toggle-switches"]
+	path = toggle-switches
+	url = https://github.com/mmalecki/openscad-toggle-switches

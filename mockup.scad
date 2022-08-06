@@ -2,12 +2,13 @@ use <bed.scad>;
 use <base.scad>;
 use <floor.scad>;
 use <cover.scad>;
+use <cover-top.scad>;
 use <led-mount.scad>;
 use <pcb-mount.scad>;
 use <PolyGear/PolyGear.scad>;
 include <parameters.scad>;
 
-explode = false;
+explode = true;
 
 e = explode ? 40 : 0;
 slack = 0;
@@ -15,6 +16,7 @@ slack = 0;
 floor_ = true;
 base = true;
 cover = true;
+cover_top = true;
 bed = false;
 bed_gear = true;
 bed_raiser = true;
@@ -53,6 +55,18 @@ module engine_front_mockup () {
     }
   }
 }
+
+module endstop () {
+  difference () {
+    translate([-endstop_l / 2, 0, -endstop_bolt_offset]) {
+      cube([endstop_l, endstop_w+1, endstop_h]);
+      color("red") cube([endstop_l, endstop_w, endstop_deact_h]);
+      color("green") cube([endstop_l, endstop_w, endstop_act_h]);
+    }
+    translate([0, -cover_t, 0]) rotate([270, 0, 0]) endstop_bolts();
+  }
+}
+
 
 module mockup () {
   if (floor_) {
@@ -115,8 +129,17 @@ module mockup () {
   }
 
   if (cover) {
-    translate([0, 0, base_h - base_mounting_inset + slack + 5 * e]) cover();
+    translate([0, 0, base_h - base_mounting_inset + slack + 5 * e]) cover_mockup();
   }
+
+  if (cover_top) {
+    translate([0, 0, base_h - base_mounting_inset + cover_h + slack + 6 * e]) cover_top();
+  }
+}
+
+module cover_mockup () {
+  cover();
+  translate([0, -cover_t, 0]) to_cover_endstop() endstop();
 }
 
 module bed_mockup () {

@@ -17,6 +17,17 @@ module rib_cutout(d, h) {
   }
 }
 
+module to_led_mount_cover_mount () {
+  translate([led_mount_rib_t, 0, led_mount_rib_h - led_mount_rib_nutcatch_offset])
+    rotate([0, 270, 0]) children();
+}
+
+module led_mount_cover_bolts () {
+  to_led_mount_cover_mount () {
+    bolt(led_mount_bolt, length = led_mount_rib_t + cover_t, kind = "socket_head");
+  }
+}
+
 module led_mount_rib () {
   difference () {
     union () {
@@ -35,11 +46,9 @@ module led_mount_rib () {
       rib_cutout(led_mount_pad_w + fit, h = led_mount_rib_pad_channel_t);
       rib_cutout(led_mount_rib_channel_d, h = led_mount_rib_t);
 
-      translate([led_mount_rib_t, 0, led_mount_rib_h - led_mount_rib_nutcatch_offset])
-        rotate([0, 270, 0]) {
-          nutcatch_parallel(led_mount_bolt);
-          bolt(led_mount_bolt, length = led_mount_rib_t + cover_t);
-        }
+      to_led_mount_cover_mount()
+        nutcatch_parallel(led_mount_bolt);
+      led_mount_cover_bolts();
     }
 
   }

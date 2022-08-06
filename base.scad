@@ -68,7 +68,7 @@ module base () {
       rotate([0, 0, 180]) base_led_mount();
       rotate([0, 0, 270]) base_led_mount();
 
-      cover_bolts();
+      translate([0, 0, floor_h]) cover_bolts();
       translate([0, 0, base_h - base_mounting_inset])
         cover_mounts() cylinder(d = standoff_d + fit, h = base_mounting_inset);
     }
