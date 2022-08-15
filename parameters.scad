@@ -13,6 +13,7 @@ loose_fit = 0.5;
 // The bolt we use by default.
 bolt = "M3";
 bolt_head_l = bolt_head_length(bolt, kind = "socket_head");
+nut_standoff_d = 8.8;
 standoff_d = 7;
 // Additional clearance for heads of bolts serving as shafts:
 bolt_shaft_head_clearance = 1;
@@ -40,6 +41,13 @@ assert(bed_gear_teeth < bed_d, "bed gear will not fit the chamber");
 // but the distance also determines compatibility between the bed gear and the
 // bed, so it's safest to keep it a constant while in development.
 bed_gear_bolt_s = 30; 
+
+// Arbirtrary height of the bed rim:
+bed_rim_h = 2;
+bed_rim_t = 2;
+
+bed_workholding_s = 0;
+bed_workholding_steps = floor(bed_d / bed_workholding_s / 2);
 
 // Calculated length of the bolt holding the bed and bed gear together:
 bed_gear_bolt_l = bed_h + bed_gear_h;

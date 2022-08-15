@@ -3,11 +3,14 @@ use <catchnhole/catchnhole.scad>;
 include <parameters.scad>;
 
 module bed_gear_bolts () {
+  bed_gear_mounts() bolt(bolt, length = bed_gear_bolt_l, kind = "socket_head", countersink = 1);
+}
+module bed_gear_mounts () {
   translate([bed_gear_bolt_s / 2, 0])
-    bolt(bolt, length = bed_gear_bolt_l, kind = "socket_head", countersink = 1);
+    children();
 
   translate([-bed_gear_bolt_s / 2, 0])
-    bolt(bolt, length = bed_gear_bolt_l, kind = "socket_head", countersink = 1);
+    children();
 }
 
 module bed_gear () {
