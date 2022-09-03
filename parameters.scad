@@ -14,6 +14,8 @@ loose_fit = 0.5;
 bolt = "M3";
 bolt_head_l = bolt_head_length(bolt, kind = "socket_head");
 
+// Design rules:
+
 // Minimal diameter of a standoff ended with a nut. The goal of this design rule
 // is to provide adequate material around the nut.
 nut_standoff_d = 8.8;
@@ -37,12 +39,6 @@ cover_bed_clearance = 8;
 
 // Height of the bed plater:
 bed_h = 4.2;
-
-// Arbirtrary spacing between the bolts holding the bed and bed gear together:
-// This could have been calculated off the bearing and its holder's width,
-// but the distance also determines compatibility between the bed gear and the
-// bed, so it's safest to keep it a constant while in development.
-bed_mount_bolt_s = 30;
 
 // Arbirtrary height of the bed rim:
 bed_rim_h = 2;
@@ -75,6 +71,9 @@ pcb_mount_bolt_l = (base_h - base_mounting_inset) + pcb_mount_standoff_h + pcb_t
 
 bed_mount_d = 30;
 bed_mount_h = pcb_h + pcb_mount_standoff_h;
+
+// Arbirtrary spacing between the bolts connecting the bed and bed mount.
+bed_mount_bed_bolt_s = 30;
 
 bed_mount_bed_bolt = lookup_kv(next_bolt(bolt, bed_h + nut_standoff_h - bolt_head_l), "next");
 bed_mount_bed_bolt_l = lookup_kv(bed_mount_bed_bolt, "length");
@@ -163,4 +162,3 @@ cover_switch_side_offset = cover_dc_input_side_offset + cover_dc_input_d + cover
 cover_led_mount_bolt_clearance = 0.2;
 
 cover_top_h = 5;
-

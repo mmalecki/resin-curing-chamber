@@ -6,10 +6,10 @@ module bed_mount_bed_bolts () {
     bolt(bolt, length = bed_mount_bed_bolt_l, kind = "socket_head");
 }
 module bed_mount_bed_mounts () {
-  translate([bed_mount_bolt_s / 2, 0])
+  translate([bed_mount_bed_bolt_s / 2, 0])
     children();
 
-  translate([-bed_mount_bolt_s / 2, 0])
+  translate([-bed_mount_bed_bolt_s / 2, 0])
     children();
 }
 
