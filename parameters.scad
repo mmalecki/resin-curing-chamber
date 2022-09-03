@@ -89,7 +89,7 @@ bed_mount_base_bolt_countersink = lookup_kv(bed_mount_base_bolt, "countersink");
 
 // How much distance is there between base top and beginning of the chamber
 // (height of the under-bed machinery):
-chamber_add_h = -base_mounting_inset + bed_mount_h + bed_h;
+chamber_add_h = bed_mount_h + bed_h;
 
 // The width of the LED strip you have:
 led_strip_w = 8;
@@ -138,6 +138,7 @@ cover_bolt_countersink = lookup_kv(cover_bolt, "countersink");
 
 echo(str("BOM (cover bolt): ", bolt, "x", cover_bolt_l));
 
+// Dimensions of the endstop:
 endstop_bolt_spacing = 7;
 endstop_bolt = "M2";
 // When the endstop is activated, its total height (including the depressed lever) is this:
@@ -153,6 +154,7 @@ endstop_bolt_offset = 2.1;
 endstop_cover_offset_add = 4;
 endstop_cover_offset = cover_h + endstop_bolt_offset - endstop_deact_h - endstop_cover_offset_add;
 endstop_activator_h = (endstop_deact_h - endstop_pressed_h) * 3/4 + endstop_cover_offset_add;
+
 cover_dc_input_d = 7.6 + fit;
 cover_switch_d = 5.85 + fit;
 cover_dc_input_bottom_offset = pcb_mount_standoff_h + 25;
