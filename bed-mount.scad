@@ -4,12 +4,11 @@ use <base.scad>;
 include <parameters.scad>;
 
 module bed_mount_base_mounts () {
-  a = standoff_d / 2;
-  b = bed_mount_d - a;
-  translate([a, a]) children();
-  translate([b, a]) children();
-  translate([a, b]) children();
-  translate([b, b]) children();
+  a = bed_mount_d - standoff_d;
+  translate([-a / 2, -a / 2]) children();
+  translate([-a / 2, a / 2]) children();
+  translate([a  / 2, a / 2]) children();
+  translate([a / 2, -a / 2]) children();
 }
 
 module bed_mount_base_bolts () {
@@ -30,7 +29,7 @@ module bed_mount () {
       }
     }
 
-    translate([0, 0, -inset_base_h])
+    translate([bed_mount_d / 2, bed_mount_d / 2, -inset_base_h])
       bed_mount_base_bolts();
 
     translate([bed_mount_d / 2, bed_mount_d / 2, bed_mount_z]) {

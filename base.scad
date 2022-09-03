@@ -40,13 +40,11 @@ module base () {
 
 
     translate([base_d / 2, base_d / 2]) {
-      translate([-bed_mount_d / 2, -bed_mount_d / 2]) {
-        bed_mount_base_bolts();
-        bed_mount_base_mounts() nutcatch_parallel(bolt);
+      bed_mount_base_bolts();
+      bed_mount_base_mounts() nutcatch_parallel(bolt);
 
-        translate([-fit / 2, -fit / 2, base_h - base_mounting_inset]) {
-          cube([bed_mount_d + fit, bed_mount_d + fit, base_mounting_inset]);
-        }
+      translate([-bed_mount_d / 2  -fit / 2, -bed_mount_d / 2-fit / 2, base_h - base_mounting_inset]) {
+        cube([bed_mount_d + fit, bed_mount_d + fit, base_mounting_inset]);
       }
 
       base_led_mount();
