@@ -25,5 +25,5 @@ much impact on the curing quality, probably due to the light source being all
 around the part, and not in a single place, as in some other projects.
 
 Additionally, the build volume of my printer is tiny, so I didn't really need
-the size the other projects were offering. Instead, I wanted something I could
-scale up while keeping the innards intact if I wanted to.
+the size the other projects were offering out of the box. Instead, I wanted
+something I could scale up while keeping the innards intact if I wanted to.
