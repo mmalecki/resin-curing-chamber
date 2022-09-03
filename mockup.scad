@@ -36,46 +36,44 @@ module endstop () {
 
 module mockup () {
   if (floor_) {
-    translate([0, 0, -e]) floor_();
+    floor_();
   }
 
   if (base) {
-    base();
+    translate([0, 0, floor_h + e + slack]) base();
   }
 
-  translate([base_d / 2, base_d / 2, base_h + e + slack]) {
-    translate([0, 0, -base_mounting_inset + slack]) {
+  translate([0, 0, floor_h + inset_base_h + 2 * e + 2 * slack]) {
+    translate([base_d / 2, base_d / 2]) {
       if (bed_mount) {
         translate([-bed_mount_d / 2, -bed_mount_d / 2])
           bed_mount();
       }
 
-      translate([0, 0, bed_mount_h + e + slack]) bed_mockup();
+      if (bed) translate([0, 0, bed_mount_h + e + slack]) bed_mockup();
     }
-  }
 
-  translate([
-    cover_base_offset,
-    base_d / 2 - led_mount_rib_w / 2,
-    base_h - base_mounting_inset + slack + e
-  ]) {
-    if (led_mount) led_mount_rib();
-  }
+    translate([
+      cover_base_offset,
+      base_d / 2 - led_mount_rib_w / 2
+    ]) {
+      if (led_mount) led_mount_rib();
+    }
 
-  translate([
-    cover_base_offset + fit / 2 + standoff_d,
-    base_d - standoff_d - cover_base_offset - fit / 2,
-    base_h - base_mounting_inset
-  ]) {
-    if (pcb_mount) pcb_mount();
-  }
+    translate([
+      cover_base_offset + fit / 2 + standoff_d,
+      base_d - standoff_d - cover_base_offset - fit / 2,
+    ]) {
+      if (pcb_mount) pcb_mount();
+    }
 
-  if (cover) {
-    translate([0, 0, base_h - base_mounting_inset + slack + 5 * e]) cover_mockup();
-  }
+    if (cover) {
+      translate([0, 0, slack + e]) cover_mockup();
+    }
 
-  if (cover_top) {
-    translate([0, 0, base_h - base_mounting_inset + cover_h + slack + 6 * e]) cover_top();
+    if (cover_top) {
+      translate([0, 0, cover_h + slack + 4 * e]) cover_top();
+    }
   }
 }
 
