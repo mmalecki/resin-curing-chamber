@@ -8,5 +8,22 @@ Features:
   * safe to operate - doesn't turn on unless the cover is closed, designed with
     protecting against light leaks in mind
 
-![Front](./docs/img/front.jpg)
-![Inside](./docs/img/inside.jpg)
+| Front | Inside |
+|:-----:|:------:|
+| ![Front](./docs/img/front.jpg) | ![Inside](./docs/img/inside.jpg) |
+
+# Motivations
+There is a bunch of DYI resin curing chamber projects out there, and with better
+features. Why build another?
+
+Initially I had intended for this project to have a turn-table based on a tiny
+hobby DC motor with a reduction gearbox, therefore catching up on the feature set.
+
+However, this was increasing the complexity a lot, causing me a lot of grief
+as the engine I'd used was very underpowered, and, as I soon noticed, didn't have
+much impact on the curing quality, probably due to the light source being all
+around the part, and not in a single place, as in some other projects.
+
+Additionally, the build volume of my printer is tiny, so I didn't really need
+the size the other projects were offering. Instead, I wanted something I could
+scale up while keeping the innards intact if I wanted to.
