@@ -1,4 +1,5 @@
 use <bed.scad>;
+use <bed-mount.scad>;
 use <base.scad>;
 use <cover.scad>;
 use <pcb-mount.scad>;
@@ -38,27 +39,14 @@ module floor_ () {
 
         // Screw run-out only.
         translate([0, 0, -floor_bolt_inset]) {
-          translate([0, 0, base_h - base_mounting_inset])
-            bed_axle();
-
-          translate([-base_bed_raiser_d / 2, -base_bed_raiser_d / 2])
-            bed_raiser_bolts();
-
-          rotate([0, 0, 45])
-            translate([bed_gear_teeth / 2, -(engine_mount_w + standoff_d) / 2])
-              engine_mount_bolts();
-
+          translate([-bed_mount_d / 2, -bed_mount_d / 2])
+            bed_mount_base_bolts();
         }
 
         // Nuts get `fit` only:
         translate([0, 0, -tight_fit]) {
-          translate([-base_bed_raiser_d / 2, -base_bed_raiser_d / 2])
-            bed_raiser_mounts() nutcatch_parallel(bolt);
-
-          rotate([0, 0, 45]) {
-            translate([bed_gear_teeth / 2, -(engine_mount_w + standoff_d) / 2])
-              engine_mount_mounts() nutcatch_parallel(bolt);
-          }
+          translate([-bed_mount_d / 2, -bed_mount_d / 2])
+            bed_mount_base_mounts() nutcatch_parallel(bolt);
         }
       }
     }
