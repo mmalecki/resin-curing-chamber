@@ -36,7 +36,7 @@ cover_t = 2;
 // How much side clearance the bed should have from cover:
 cover_bed_clearance = 8;
 
-// Height of the bed plater:
+// Arbirtrary height of the bed plater:
 bed_h = 4.2;
 
 // Arbirtrary height of the bed rim:
@@ -44,7 +44,7 @@ bed_rim_h = 2;
 bed_rim_t = 2;
 
 // Base:
-// Height of the base plate:
+// Arbirtrary height of the base plate:
 base_h = 5;
 // How recessed the mounted parts should be within the base:
 base_mounting_inset = 2;
@@ -93,6 +93,7 @@ chamber_add_h = bed_mount_h + bed_h;
 led_strip_w = 8;
 // And its thickness:
 led_strip_t = 1.6;
+
 // The bolt we're using for mounting the LED mounts.
 led_mount_bolt = "M2";
 
