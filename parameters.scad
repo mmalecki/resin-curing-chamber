@@ -5,7 +5,6 @@ use <next-bolt/next-bolt.scad>;
 $fn = 50;
 
 // Standard fits.
-press_fit = 0.05;
 tight_fit = 0.1;
 fit = 0.25;
 loose_fit = 0.5;
