@@ -43,7 +43,7 @@ module led_mount_rib () {
     }
 
     translate([0, led_mount_rib_w / 2]) {
-      rib_cutout(led_mount_pad_w + fit, h = led_mount_rib_pad_channel_t);
+      rib_cutout(led_mount_pad_w + fit, h = led_mount_pad_t);
       rib_cutout(led_mount_rib_channel_d, h = led_mount_rib_t);
 
       to_led_mount_cover_mount()
@@ -56,11 +56,12 @@ module led_mount_rib () {
 
 module led_mount_clamp () {
   back_w = led_mount_clamp_back_w + 2 * led_mount_clamp_t;
+  leg = led_strip_t + loose_fit;
+
   difference () {
     linear_extrude (led_mount_clamp_h) {
       union () {
         square([led_mount_clamp_back_t, back_w]);
-        leg = led_strip_t + loose_fit;
         translate([led_mount_clamp_back_t, 0]) {
           square([leg, led_mount_clamp_t]);
           translate([0, led_mount_clamp_back_w + led_mount_clamp_t])
@@ -78,7 +79,7 @@ module led_mount_clamp () {
 
     // This bolt starts behind us, in the led clamp pad.
     translate([
-      -(led_mount_rib_t - led_mount_rib_pad_channel_t) - led_mount_pad_t,
+      -led_mount_rib_t,
       (back_w) / 2,
       led_mount_clamp_h / 2
     ]) {

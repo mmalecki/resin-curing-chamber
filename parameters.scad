@@ -104,10 +104,11 @@ led_mount_clamp_back_w = led_strip_w + fit;
 led_mount_clamp_front_w = 0.625 * (led_mount_clamp_back_w + 2 * led_mount_clamp_t);
 led_mount_clamp_bolt_l = 4;
 
+// On the other side of the LED clamp is a rectangular pad that holds a nutcatch.
+// It rightens itself as the bolt is tightened.
 led_mount_pad_w = 8;
 led_mount_pad_h = 6;
 led_mount_pad_t = 2;
-led_mount_rib_pad_channel_t = led_mount_pad_t;
 
 // LED mount rib (the vertical piece holding LED clamps):
 led_mount_rib_w = 14;
