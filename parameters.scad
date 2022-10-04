@@ -52,14 +52,6 @@ assert(base_mounting_inset < base_h, "base mounting inset cannot be larger than 
 base_d = bed_d + cover_bed_clearance + cover_t * 2;
 
 // PCB mount:
-// Measured:
-pcb_t = 1.75;
-pcb_w = 48;
-pcb_l = 35;
-pcb_h = 15;
-pcb_mount_bolt_s = 40.6;
-
-pcb_mount_bolt = "M2";
 pcb_mount_standoff_h = 7.5;
 pcb_mount_w = pcb_mount_bolt_s + standoff_d;
 pcb_mount_bolt_l = (base_h - base_mounting_inset) + pcb_mount_standoff_h + pcb_t;
@@ -85,20 +77,17 @@ bed_mount_base_bolt_countersink = lookup_kv(bed_mount_base_bolt, "countersink");
 // (height of the under-bed machinery):
 chamber_add_h = bed_mount_h + bed_h;
 
-// The width of the LED strip you have:
-led_strip_w = 8;
-// And its thickness:
-led_strip_t = 1.6;
-
 // The bolt we're using for mounting the LED mounts.
 led_mount_bolt = "M2";
 
 // The LED clamp is a U-shaped bracket with additional holders at the top.
 led_mount_clamp_t = 1.2;
 led_mount_clamp_h = 8;
+// TODO: calculate this out of design rules (minimal bolt mating length) and LED mount bolt head length.
 led_mount_clamp_back_t = 2;
 led_mount_clamp_back_w = led_strip_w + fit;
 led_mount_clamp_front_w = 0.625 * (led_mount_clamp_back_w + 2 * led_mount_clamp_t);
+// TODO: next-bolt this
 led_mount_clamp_bolt_l = 4;
 
 // On the other side of the LED clamp is a rectangular pad that holds a nutcatch.
@@ -110,8 +99,10 @@ led_mount_pad_t = 2;
 // LED mount rib (the vertical piece holding LED clamps):
 led_mount_rib_w = 14;
 led_mount_rib_t = 3;
+// TODO: calculate the following 2 out of nut standoff ds
 led_mount_rib_nutcatch_offset = 3;
 led_mount_rib_channel_offset = 10;
+// TODO: calculate this out of LED mount bolt d and clearance
 led_mount_rib_channel_d = 2.5;
 led_mount_rib_h = chamber_h + chamber_add_h;
 led_mount_rib_bracket_l = 10;
