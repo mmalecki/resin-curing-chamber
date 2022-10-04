@@ -75,12 +75,12 @@ module mockup () {
       if (led_mount_rib) led_mount_rib();
       translate([0, 0, led_mount_rib_h / 2]) {
         if (led_mount_clamp) {
-          translate([led_mount_rib_t, (led_mount_rib_w - led_mount_clamp_back_w - 2 * led_mount_clamp_t) / 2]) {
+          translate([e + led_mount_rib_t, (led_mount_rib_w - led_mount_clamp_back_w - 2 * led_mount_clamp_t) / 2]) {
             led_mount_clamp();
           }
         }
         if (led_mount_pad) {
-          translate([0, (led_mount_rib_w - led_mount_pad_w) / 2]) {
+          translate([-e, (led_mount_rib_w - led_mount_pad_w) / 2, (led_mount_clamp_h - led_mount_pad_h) / 2]) {
             rotate([90, 0, 90])
               led_mount_pad();
           }
