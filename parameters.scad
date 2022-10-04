@@ -1,6 +1,7 @@
 use <catchnhole/catchnhole.scad>;
 use <lookup-kv/lookup-kv.scad>;
 use <next-bolt/next-bolt.scad>;
+include <parameters-sizing.scad>;
 
 $fn = 50;
 
@@ -26,11 +27,6 @@ nut_standoff_h = nut_height(bolt) + 0.6;
 // Minimal diameter of a bolt conduit standoff.
 standoff_d = 7;
 
-// Main sizing parameters:
-// Chamber height (maximum height of a fitting object):
-chamber_h = 100;
-// Bed diameter:
-bed_d = 134;
 // Cover thickness:
 cover_t = 2;
 // How much side clearance the bed should have from cover:
