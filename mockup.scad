@@ -5,23 +5,38 @@ use <floor.scad>;
 use <cover.scad>;
 use <cover-top.scad>;
 use <led-mount.scad>;
+use <led-mount-pad.scad>;
+use <led-mount-clamp.scad>;
 use <pcb-mount.scad>;
 include <parameters.scad>;
 
+// Whether to explode the design
 explode = true;
 
-e = explode ? 40 : 0;
+// Slack between parts
 slack = 0;
 
 floor_ = true;
 base = true;
-cover = true;
-cover_top = true;
-bed = true;
-pcb_mount = true;
-led_mount = true;
-bed_mount = true;
 
+// Whether to display the bed mount
+bed_mount = true;
+// Whether to display the bed
+bed = true;
+
+// Whether to display the PCB mount
+pcb_mount = true;
+
+led_mount_rib = true;
+led_mount_pad = true;
+led_mount_clamp = true;
+
+// Whether to display the cover
+cover = true;
+// Whether to display the top cover
+cover_top = true;
+
+e = explode ? 40 : 0;
 module endstop () {
   difference () {
     translate([-endstop_l / 2, 0, -endstop_bolt_offset]) {
@@ -57,7 +72,20 @@ module mockup () {
       cover_base_offset,
       base_d / 2 - led_mount_rib_w / 2
     ]) {
-      if (led_mount) led_mount_rib();
+      if (led_mount_rib) led_mount_rib();
+      translate([0, 0, led_mount_rib_h / 2]) {
+        if (led_mount_clamp) {
+          translate([led_mount_rib_t, (led_mount_rib_w - led_mount_clamp_back_w - 2 * led_mount_clamp_t) / 2]) {
+            led_mount_clamp();
+          }
+        }
+        if (led_mount_pad) {
+          translate([0, (led_mount_rib_w - led_mount_pad_w) / 2]) {
+            rotate([90, 0, 90])
+              led_mount_pad();
+          }
+        }
+      }
     }
 
     translate([
