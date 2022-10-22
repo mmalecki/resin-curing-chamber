@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+OUTPUT_DIR="output"
+OUTPUT_EXT="stl"
+FILES=( base bed-mount bed cover-top cover floor led-mount pcb-mount )
+
+if [ -z "$VERSION_STRING" ]; then
+  VERSION_STRING=$((git rev-parse HEAD || echo "(none)") | cut -c 1-8)
+fi
+
+mkdir -p $OUTPUT_DIR
+
+for file in "${FILES[@]}"; do
+  echo "building $file ..." >&2
+  cmd="openscad --enable import-function -D '\$fn=100' -D 'version_string=\"$VERSION_STRING\"' -D 'emboss_versions=true' $file.scad -o \"$OUTPUT_DIR/$file.$OUTPUT_EXT\"" 
+  echo "$cmd" >&2
+  echo "$cmd"
+done | parallel

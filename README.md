@@ -12,7 +12,10 @@ Features:
 |:-----:|:------:|
 | ![Front](./docs/img/front.jpg) | ![Inside](./docs/img/inside.jpg) |
 
-# Motivations
+## Build manual
+See the [build manual document](./docs/build-manual.md) for BOM and instructions.
+
+## Motivations
 There is a bunch of DYI resin curing chamber projects out there, and with better
 features. Why build another?
 
@@ -27,3 +30,6 @@ around the part, and not in a single place, as in some other projects.
 Additionally, the build volume of my printer is tiny, so I didn't really need
 the size the other projects were offering out of the box. Instead, I wanted
 something I could scale up while keeping the innards intact if I wanted to.
+
+The goal for a next version is to revisit the turn-table concept, as well as add
+in some form of a timer and display.
